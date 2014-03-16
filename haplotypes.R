@@ -20,7 +20,7 @@ setwd(paste(wd,clust,sep=""))
 consens_files<-list.files()[grep("consens$",list.files())] 
 clustS_files<-list.files()[grep("clustS$",list.files())] 
 freqofmins<-NULL
-for (i in 1:3){#length(consens_files)){
+for (i in 1:length(consens_files)){
 	consens<-scan(consens_files[i],what="character",sep="\n")
 	clustS<-scan(clustS_files[i],what="character",sep="\n")
 	output<-paste(paste(wd,outputdir,"/",consensdir,sep=""),consens_files[i],sep="")
@@ -40,7 +40,7 @@ for (i in 1:3){#length(consens_files)){
 	mult_ambig<-NULL
 	one_ambig<-NULL
 	find_in_clust<-NULL
-	for (k in 1:300){#length(ambig_list)){
+	for (k in 1:length(ambig_list)){
 		multi<-grep("[MRWYKSmrwyks]",strsplit(consens[ambig_list[k]],"")[[1]])
 		name<-consens[(ambig_list[k]-1)]
 		seq.vec<-strsplit(consens[ambig_list[k]],"")[[1]]
