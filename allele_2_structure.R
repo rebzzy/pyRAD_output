@@ -1,6 +1,6 @@
 ####################################################################################################
 #### make structure or geneland input file from allelic data (non-binary) ##########################
-insnp<-"~/Desktop/Wagtails/pyrad_filter_results/haplotypes/outfiles/whites_haplo2_cl80c12m12.snps" # unedited output from pyRAD
+insnp<-"path-to-.snps file" # unedited output from pyRAD
 nspecies<-23
 maxallele<-9 #maximum number of alleles at each locus
 out.suffix<-"structure"
