@@ -32,8 +32,8 @@ for (i in 1:length(consens_files)){
 			conlength<-c(conlength,nchar(consens[j*2]))
 			ambig_list<-c(ambig_list,(j*2))
 		} else { # no ambiguity
-			write(paste("allele1_",consens[(j*2)-1],"\n",consens[j*2],sep=""),output,append=TRUE)
-			write(paste("allele2_",consens[(j*2)-1],"\n",consens[j*2],sep=""),output,append=TRUE)
+			write(paste(">allele1_",gsub(">","",consens[(j*2)-1]),"\n",consens[j*2],sep=""),output,append=TRUE)
+			write(paste(">allele2_",gsub(">","",consens[(j*2)-1]),"\n",consens[j*2],sep=""),output,append=TRUE)
 		}
 	}
 	clustEND<-grep("//",clustS) # if ambiguity, search clustS file
@@ -42,7 +42,7 @@ for (i in 1:length(consens_files)){
 	find_in_clust<-NULL
 	for (k in 1:length(ambig_list)){
 		multi<-grep("[MRWYKSmrwyks]",strsplit(consens[ambig_list[k]],"")[[1]])
-		name<-consens[(ambig_list[k]-1)]
+		name<-gsub(">","",consens[(ambig_list[k]-1)])
 		seq.vec<-strsplit(consens[ambig_list[k]],"")[[1]]
 		allele1<-seq.vec
 		allele2<-seq.vec
@@ -68,8 +68,8 @@ for (i in 1:length(consens_files)){
 				} else if (length(phase[,1])==2){
 					allele1[multi]<-phase[1,]
 					allele2[multi]<-phase[2,]
-					write(paste("allele1_",name,"\n",paste(allele1,collapse=""),sep=""),output, append=TRUE)
-					write(paste("allele2_",name,"\n",paste(allele2,collapse=""),sep=""),output, append=TRUE)
+					write(paste(">allele1_",name,"\n",paste(allele1,collapse=""),sep=""),output, append=TRUE)
+					write(paste(">allele2_",name,"\n",paste(allele2,collapse=""),sep=""),output, append=TRUE)
 				} else if (length(phase[,1])>2){
 					# finds 3 alleles!
 						print("Found 3 alleles")
@@ -100,8 +100,8 @@ for (i in 1:length(consens_files)){
 			}
 			allele1[multi]<-reps[1]
 			allele2[multi]<-reps[2]
-			write(paste("allele1_",name,"\n",paste(allele1,collapse=""),sep=""),output,append=TRUE)
-			write(paste("allele2_",name,"\n",paste(allele2,collapse=""),sep=""),output,append=TRUE)
+			write(paste(">allele1_",name,"\n",paste(allele1,collapse=""),sep=""),output,append=TRUE)
+			write(paste(">allele2_",name,"\n",paste(allele2,collapse=""),sep=""),output,append=TRUE)
 		}
 	}
 }
