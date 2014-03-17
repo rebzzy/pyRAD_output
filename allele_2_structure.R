@@ -24,11 +24,8 @@ for (i in 1:length(a[1,])){
 			geno<-"0 0"
 		} else {
 			geno<-paste(which(list.geno==a[r,i]),which(list.geno==a[(r+nspecies),i]),sep=" ")
-			if (nchar(geno)==1){
-				geno<-paste(geno,"N",sep=" ")
-			}
-			if (geno==""){
-				print(i)
+			if (nchar(geno)==2){
+				geno<-paste(geno,0,sep="")
 			}
 		}
 		one_locus<-rbind(one_locus,geno)
