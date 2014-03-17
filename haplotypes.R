@@ -57,11 +57,8 @@ for (i in 1:length(consens_files)){
 					temp.matrix<-rbind(temp.matrix,strsplit(justseq[s],"")[[1]][multi])
 					#makes matrix of the variable loci; rows are sequence, col is var site
 				}
-				for (c in 1:dim(temp.matrix)[2]){
-					if (length(which(temp.matrix[,c]=="N"))>0){ #take out rows that have N in them	
-						temp.matrix<-as.matrix(temp.matrix[-unique(which(temp.matrix[,c]=="N")),]) 
-						}
-				}
+				df<-gsub("N",NA,temp.matrix)
+				temp.matrix<-df[rowSums(is.na(df))<1,]
 				if (length(dim(temp.matrix))==0){
 					next()
 				}
