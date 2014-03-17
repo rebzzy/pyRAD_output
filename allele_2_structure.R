@@ -8,11 +8,8 @@ out.suffix<-"structure"
 ####################################################################################################
 
 a<-read.table(insnp,header=FALSE,skip=1,row.names=1,na.strings="000")
+sp.names<-gsub("allele1_","",row.names(a)[1:nspecies])
 strux_table<-NULL
-allequal<-0
-problem.col<-NULL
-problem.row<-NULL
-one_allele<-0
 for (i in 1:length(a[1,])){
 	if (a[1,i]=="_"){ next()}
 	rem.N<-a[-(grep("N",a[,i])),i] #vector of snps at locus but without "N"
@@ -24,12 +21,11 @@ for (i in 1:length(a[1,])){
 	one_locus<-NULL
 	for (r in 1:nspecies){
 		if (length(grep("N",a[r,i]))>0){
-			geno<-"-9-9"
+			geno<-"0 0"
 		} else {
-			geno<-paste(which(list.geno==a[r,i]),which(list.geno==a[(r+nspecies),i]),sep="")
+			geno<-paste(which(list.geno==a[r,i]),which(list.geno==a[(r+nspecies),i]),sep=" ")
 			if (nchar(geno)==1){
-				geno<-paste(geno,"N",sep="")
-				one_allele<-one_allele+1
+				geno<-paste(geno,"N",sep=" ")
 			}
 			if (geno==""){
 				print(i)
@@ -39,4 +35,4 @@ for (i in 1:length(a[1,])){
 	}
 	strux_table<-cbind(strux_table,one_locus)
 }
-write.csv(strux_table,gsub("snps",a.type,insnp),row.names=FALSE,quote=FALSE)
+write.table(cbind(sp.names,strux_table),gsub("snps","test",insnp),row.names=FALSE,quote=FALSE,sep=" ",col.names=FALSE)
